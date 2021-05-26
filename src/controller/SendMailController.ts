@@ -30,22 +30,23 @@ class SendMailController {
       return response.status(400).json({ error: 'Survery dos not exists' });
     }
 
+    const npsPath = resolve(__dirname, '..', 'views', 'emails', 'npsMail.hbs');
+
+    const surveryUserAlreadyExists = await surverysUsersRepository.findOne({
+      where: { user_id: user.id, value: null },
+      relations: ['user', 'survery'],
+    });
+
     const variables = {
       name: user.name,
       title: (await survery).title,
       description: (await survery).description,
-      user_id: user.id,
+      id: '',
       link: process.env.URL_MAIL,
     };
 
-    const npsPath = resolve(__dirname, '..', 'views', 'emails', 'npsMail.hbs');
-
-    const surveryUserAlreadyExists = await surverysUsersRepository.findOne({
-      where: [{ user_id: user.id }, { value: null }],
-      relations: ['user', 'survery'],
-    });
-
     if (surveryUserAlreadyExists) {
+      variables.id = surveryUserAlreadyExists.id;
       await SendMailService.execute(
         email,
         (
@@ -63,6 +64,8 @@ class SendMailController {
     });
 
     await surverysUsersRepository.save(surveryUser);
+
+    variables.id = surveryUser.id;
 
     await SendMailService.execute(
       email,
