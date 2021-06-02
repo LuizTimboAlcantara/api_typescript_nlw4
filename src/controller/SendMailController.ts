@@ -7,6 +7,7 @@ import { SurverysUsersRepository } from '../repositories/SurverysUsersRepository
 import SendMailService from '../services/SendMailService';
 
 import { resolve } from 'path';
+import { AppErro } from '../errors/AppErros';
 
 class SendMailController {
   async execute(request: Request, response: Response) {
@@ -21,13 +22,13 @@ class SendMailController {
     const user = await usersRepository.findOne({ email });
 
     if (!user) {
-      return response.status(400).json({ error: 'User does not exists' });
+      throw new AppErro('User does not exists!');
     }
 
     const survery = surveryRepository.findOne({ id: survery_id });
 
     if (!survery) {
-      return response.status(400).json({ error: 'Survery dos not exists' });
+      throw new AppErro('Survery does not exists!');
     }
 
     const npsPath = resolve(__dirname, '..', 'views', 'emails', 'npsMail.hbs');
