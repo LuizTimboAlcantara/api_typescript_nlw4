@@ -4,7 +4,7 @@
  </h1>
 
 <h1 align="center">
-  <img src="" />
+  <img src=".\public\rocketseat.jpg" />
 <h1>
 
 # Índice
@@ -17,7 +17,7 @@
 
 #🧱 Sobre
 
-Em desenvolvimento...
+Api para envio de e-mail com pesquisa de satisfação criada durante a NLW4.
 
 ---
 
@@ -28,6 +28,7 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias:
 - NodeJs;
 - TypeScript;
 - TypeORM;
+- Node Mailer;
 
 ---
 
@@ -35,15 +36,18 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias:
 
 ```bash
 # Clonar o repositório
-  $ 
+  $ git clone https://github.com/LuizTimboAlcantara/api_typescript_nlw4.git
 
 # Entrar na pasta do projeto
-  $ 
+  $ cd api_typescript_nlw4.git
 
 # Instalar as dependências do projeto
   $ npm install ou yarn install
 
+  # Rodar os testes da aplicação
+  $ yarn test ou npm test
+
 # Rodar a aplicação
-  $ 
+  $ yarn dev ou npm dev
 
 ```
